@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PIZZA TIME!</title>
+</head>
+<body>
+<h1>Pizzaz Pizza Order</h1>
+<form method="POST" action="https://requestb.in/1mptibb1">
+	<h2>Email</h2>
+	<input type="text" name="email" placeholder="Your Email"><br>
+	<h2>Pickup or delivery?</h2>
+	Pickup in store<input type="radio" name="pic/deliv pref" value="Pickup in store">
+	Delivery<input type="radio" name="pic/deliv pref" value="Delivery">
+	<h2>Pickup or delivery time</h2>
+	<input type="text" name="pickup/delivery time"><br>
+	<h2>Pick your toppings</h2>
+	<select name="Toppings" multiple>
+		<option value="Pepperoni">Pepperoni</option>
+		<option value="Anchovie">Anchovie</option>
+		<option value="Canadian Bacon">Canadian Bacon</option>
+		<option value="American Bacon">American Bacon</option>
+	</select><br>
+	<h2>Special Instructions</h2>
+	<textarea name="bio" placeholder="Special Instructions or Comments"></textarea><br>
+	<input type="submit">
+</form>
+</body>
+</html>

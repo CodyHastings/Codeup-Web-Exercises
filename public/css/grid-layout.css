@@ -1,0 +1,19 @@
+.column {
+    float: left;
+    padding: 10px;
+    background: grey;
+    border: solid black;
+    box-sizing: border-box;
+}
+.column.one-third {
+    width: 33.33%;
+}
+.column.one-half {
+    width: 50%;
+}
+.column.one-fourth{
+	width: 25%;
+}
+.column.one-eight{
+	width: 12.5%;
+}

@@ -1,0 +1,63 @@
+@import url(https://fonts.googleapis.com/css?family=Orbitron);
+body{
+	background: url(../img/VDbackground.jpg);
+	color: papayawhip;
+	font-family: Orbitron;
+}
+
+img {
+	height: 300px;
+	width: 300px;
+}
+
+ul {
+	list-style-type: square;
+}
+p{
+	clear:left;
+}
+
+a:visited {	
+	color: purple;
+}
+#angiepangie{
+	padding-left: 5%;
+}
+#product{
+	font-size: 36px
+}
+
+.fancy-header {
+    color: orange; /* single line comment */
+    text-decoration: underline;
+}
+
+.tablestyle {
+	font-size: 20px;
+	padding: 20px;
+
+}
+.tableshead {
+	font-size: 23px;
+}
+#top{
+	float:left;
+
+}
+#topr{
+	float:left;
+}
+#bottomr{
+	float: left;
+	position: relative;
+}
+#bottoml{
+	float: left;
+	position: relative;
+	clear: left;
+}
+#tablediv{
+	clear: left;
+	position: relative;
+	padding: 2%;
+}

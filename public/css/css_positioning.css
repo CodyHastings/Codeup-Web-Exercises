@@ -1,0 +1,41 @@
+h1{
+	color: purple;
+	text-decoration: underline;
+	margin-bottom: 50px;
+}
+div{
+	border: 1px solid black;
+	height: 50px;
+	width: 50px;
+	padding: 10px;
+	color: white;
+	font-weight: bold;
+	float: left;
+	margin: 25px;
+	position: relative;
+	font-size: 15px;
+}
+.ribbon{
+	position: absolute;
+	top: -40px;
+	right: -40px;
+}
+#red{
+	background: red;
+}
+#orange{
+	background: orange;
+}
+#yellow{
+	background: yellow;	
+}
+#green{
+	background: green;
+	clear: left;
+}
+#blue{
+	background: blue;;
+}
+#violet{
+	background: violet;;
+}

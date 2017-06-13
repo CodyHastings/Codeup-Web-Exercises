@@ -1,0 +1,41 @@
+h1{
+	color: purple;
+	text-decoration: underline;
+}
+div{
+	border: 1px solid black;
+	height: 50px;
+	width: 150px;
+	padding: 10px;
+	color: white;
+	margin-bottom: 10px;
+	font-weight: bold;
+}
+#red{
+	background: red;
+}
+#orange{
+	background: orange;
+	margin-left: 30px;
+}
+#yellow{
+	background: yellow;	
+	margin-left: 60px;
+}
+#green{
+	background: green;
+	margin-left: 90px;
+}
+#blue{
+	background: blue;
+	margin-left: 120px;
+}
+#violet{
+	background: violet;
+	margin-left: 150px;
+}
+#green:hover{
+	height: 100px;
+	width: 300px;
+	transition: height, width 5s linear;
+}

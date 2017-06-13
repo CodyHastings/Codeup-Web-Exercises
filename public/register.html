@@ -1,0 +1,66 @@
+<!DOCTYPE>
+<html>
+<head>
+  <title>Register</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+	<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="welcome.html">Veridian Dynamics</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="welcome.html">Home</a></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href=" ~/ cd /Users/cody/desktop/Codeup/mygame/mygame.html">Music<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="https://www.youtube.com/watch?v=EXtFSOPFS8k&t=951s" target="_blank">Between The Buried and Me</a></li>
+            <li><a href="https://www.youtube.com/watch?v=hQ92Hmx6XFI&list=PLN2Ywag9ukw8FlhBiqRz772FTzFwp1yCL&index=1"target="_blank">He Is Legend</a></li>
+            <li><a href="https://www.youtube.com/watch?v=rhMfz4HrcEA"target="_blank">Protest The Hero</a></li>
+          </ul>
+        </li>
+ 		<li><a href="https://www.youtube.com/watch?v=dM8WjgRA6o8"target="_blank">Extremophile Elite</a></li>
+        <li><a href="https://www.youtube.com/watch?v=yqoLZpCexCk&t=3158s"target="_blank">Colors Live</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="register.html"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+	<h1 class="fancy-header">Register</h1>
+	<main>
+		<form method="POST" action="https://requestb.in/1mptibb1">
+			<label for="username">Name</label>
+			<input type="text" name="name" id="username" placeholder="Your Name" required autofocus><br>
+
+			<label for="useremail">Email</label>
+			<input id="useremail" type="text" name="email" placeholder="Your Email" required><br>
+
+			<label for"userpass">Password</label>
+			<input id="userpass" type="password" name="password" placeholder="Your password" required><br>
+
+			<label for"confirmpass">Confirm Password</label>
+			<input id="confirmpass" type="password" name="password" placeholder="Your password"required><br>
+
+			<label for"rme">Sign up for Newsletter</label>
+			<input id="rme" type="checkbox" name="Remember me" value="Sign up for Newsletter" checked><br>
+
+			<input class="fancy-header" type="submit" value="Register">
+		</form>
+	</main>		
+</body>
+</html>
