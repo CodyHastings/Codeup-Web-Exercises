@@ -93,8 +93,50 @@ switch(luckyNumber){
 		break;
 }
 
-
 console.log(receipt - amtOfDiscount);
+var number;
+
+if (confirm("Would you like to enter a number?") == true) {
+	var number = prompt("Pick a number");
+	if (number % 2 == 1){
+		console.log("the number is odd");
+	} else {
+		console.log("the number is even");
+		alert("The number is even")
+	}
+	
+	if (number > 1){
+			alert(number + " is a positive number");
+	} else {
+		alert(number + " is not a positive number");
+	}
+else {
+		alert(number + " is not a number I recognize");
+	}
+}
+
+var proceed = confirm("Would you like tyo enter a number?");
+
+if (proceed) {
+	var number = prompt("Please enter a numaber.");
+
+	if (isNaN(parseFloat(number))) {
+		console.log("Not a valid number.");
+	} else{
+		if (numbaer % 2 === 0){
+			alert("Your number is even.");
+		} else {
+			alert("Your number is odd.");
+		}
+		alert("Your number plus 100 is " ((parseFloat(number) + 100));
+		if (number < 0) {
+			console.log(number + " is negative");
+		} else {
+			console.log(number + " is positive");
+		}
+	}
+	}
+}
 
 
 
