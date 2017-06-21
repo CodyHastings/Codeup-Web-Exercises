@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>DOM: Query and Modify</title>
+</head>
+<body>
+
+<h1 id="main-header">Hello World!</h1>
+<ul>
+    <li data-dbid="1">Item 1</li>
+    <li data-dbid="2">Item 2</li>
+    <li data-dbid="3">Item 3</li>
+    <li data-dbid="4">Item 4</li>
+    <li data-dbid="5">Item 5</li>
+</ul>
+<h2 id="sub-header">Hello Again.</h2>
+<p class="sub-paragraph">
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+    ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+    aliquip ex ea commodo consequat. Duis aute irure dolor in
+    reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+    culpa qui officia deserunt mollit anim id est laborum.
+</p>
+<button id="btn1">Change Header</button>
+<button id="btn2">Change Sub Header</button>
+<button id="btn3">Change Text Color</button>
+<button id="btn4">Change Paragraph</button>
+
+<script>
+    (function() {
+        "use strict";
+        var btn1 = document.getElementById("btn1");
+        var btn2 = document.getElementById("btn2");
+        var btn3 = document.getElementById("btn3");
+        var btn4 = document.getElementById("btn4");
+        var subParagraphs = document.getElementsByClassName("sub-paragraph")[0];
+        var mainHeader = document.getElementById("main-header");
+        var subHeader = document.getElementById("sub-header");
+        var listItems = document.getElementsByTagName('li');
+        btn1.addEventListener("click",mainHead);
+        btn2.addEventListener("click",subHead);
+        btn3.addEventListener("click",textcolor);
+        btn4.addEventListener("click",paragraph);
+        
+
+        function mainHead(){
+            mainHeader.innerHTML = "JavaScript is Cool";    
+        }
+
+        function subHead (){
+            subHeader.style.color = 'blue';
+        }
+        
+        function textcolor (){
+            for (var i = 0; i < listItems.length; i++) {
+                console.log(listItems[i]);
+                if (i % 2 === 0){
+                    listItems[i].style.color = "grey";
+                }
+            }
+            listItems[0].style.color = "blue";
+        }
+
+
+        function paragraph(){
+            subParagraphs.innerHTML = "Mission Accomplished!!!";
+            console.log(subParagraphs);
+        };
+
+    })();
+</script>
+</body>
+</html>
