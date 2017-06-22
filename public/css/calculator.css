@@ -1,0 +1,82 @@
+
+body {
+	background-color:black;
+	background-image: url(../img/calcback.jpeg);
+	background-size: cover;
+}
+
+/****************************/
+
+#calculator {
+	border: 2px solid gray;
+	max-width: 320px;
+	min-height:320px;
+    min-width: 320px;
+    margin-top: 10%;
+    margin-right: auto;
+    margin-left: auto;
+    border-radius:7px;
+    cursor: crosshair;
+	background: #262626;
+	background: -webkit-linear-gradient(#262626, #424040);
+	background: -o-linear-gradient(#262626, #424040);
+	background: -moz-linear-gradient(#262626, #424040);
+	background: linear-gradient(#262626, #424040);
+}
+
+/* Screen ************************/
+
+.screen {
+	width:90%;
+	background-color:#D0F5A9;
+	height: 40px;
+    margin: auto;
+    margin-top: 20px;
+    border: 2px solid gray;
+}
+
+#screen-relay {
+	position: absolute;
+	margin-left: 10px;
+}
+
+.screen p {
+	float:right;
+	margin-right:10px;
+}
+
+
+/* Buttons **********************/
+
+.first-row ul li,
+.second-row ul li,
+.third-row ul li,
+.fourth-row ul li,
+.fifth-row ul li {
+	display: inline-block;
+	color: #262626;
+	text-align:center;
+	background-color:#C5E48B;
+	width:65px;
+	height:40px;
+	border-radius:5px;
+	padding-top:23px;
+	background-color:#08D3D3;
+	color:#9FF7F7;
+}
+
+.second-row ul,
+.third-row ul,
+.fourth-row ul,
+.fifth-row ul {
+	margin-top:-10px;
+}
+
+#clear {
+	color: red;
+}
+
+.buttons {
+	margin-left:-17px;
+	margin-top:20px;
+}
