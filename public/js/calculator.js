@@ -1,24 +1,4 @@
-/* when clicking a number or when key is pressed, append value of # to end of string in ouput div
-
-operator click or matching key, outputs operator to screen relay, converts output string to number and stores in a result variable
-
-while screen relay  = null disable operator buttons. 
-otherwise activate operator buttons. 
-
-click clear, change output to " " and screen relay to null
-
-operator plus = +
-
-operator minus = -
-
-operator multiply = *
-
-operator divide = /
-
-equals = (convert current output to number and update ouptut to result operator output)
-
-*/
-// window.onload = function(){
+window.onload = function(){
 	var numButtons = document.querySelectorAll(".numbtns");
 	var opbuttons = document.querySelectorAll(".opbtns");
 	var output = document.getElementById("output");
@@ -26,11 +6,18 @@ equals = (convert current output to number and update ouptut to result operator 
 	var clear = document.getElementById("clear");
 	var equals = document.getElementById("equals");
 	var calculator = document.getElementById("calculator");
+	var demical = document.getElementById("decimal");
 	var result;
 	var result2;
 	var outputState = 1;
 	var finalTotal;
 	equals.addEventListener("click", doMath)
+
+	decimal.addEventListener("click",function(){
+		if (output.innerHTML.indexOf(".") == -1){
+			output.innerHTML += "."
+		}
+	});
 
 	numButtons.forEach(function (button){
 		button.addEventListener("click", function(){
@@ -79,18 +66,8 @@ equals = (convert current output to number and update ouptut to result operator 
 			finalTotal = parseFloat(result) / parseFloat(result2);
 			output.innerHTML = finalTotal;
 		}
-		
-
-		
-
-
 	}
-
-
-
-
-	
-// };
+};
 
 
 
