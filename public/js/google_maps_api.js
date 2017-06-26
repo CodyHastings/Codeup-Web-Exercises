@@ -1,9 +1,7 @@
 (function() {
 	"use strict";
-	var map = null;
-	// Set our address to geocode
-	var searchButton = document.getElementById("button");
 	// Set our map options
+	var geocoder = new google.maps.Geocoder();
 	var mapOptions = {
 		// Set the zoom level
 		zoom: 19,
@@ -13,40 +11,65 @@
 			lng: -98.489602
 		}
 	};
-	// Init geocoder object
-	var gGrill = { lat: 29.443529, lng: -98.654692 };
+	// Render the map
+	var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+	var button = document.getElementById("button");
+	// Include code from previous example
 
-	// Add the marker to our existing map
-	var marker = new google.maps.Marker({
-	position: gGrill,
-	map: map
-	});
-
-	
-
-	
-
+// Set our address to geocode
 	function search(){
-		address = prompt("what location would you like to search for?");
-		var geocoder = new google.maps.Geocoder();
+		swal({
+			title: "Hello!",
+			text: "What would you like to search for?",
+			type: "input",
+			showCancelButton: true,
+			closeOnConfirm: false,
+			animation: "slide-from-top",
+			inputPlaceholder: "Write something"
+		},
+		function(inputValue){
 
-		// Geocode our address
-		geocoder.geocode({ "address": address }, function(results, status) {
-
-			// Check for a successful result
-			if (status == google.maps.GeocoderStatus.OK) {
-
-		   // Recenter the map over the address
-			map.setCenter(results[0].geometry.location);
-			console.log(results, status)
-			} else {
-
-		   // Show an error message with the status if our request fails
-		   alert("Geocoding was not successful - STATUS: " + status);
+			if (inputValue === false){
+				return false;
 			}
-		});
-	};
-	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-	searchButton.addEventListener("click", search);
 
+			if (inputValue === "") {
+				swal.showInputError("You need to write something!");
+				return false
+			}
+
+			// Geocode our address
+			geocoder.geocode({ "address": inputValue }, function(results, status) {
+
+			   // Check for a successful result
+			   if (status == google.maps.GeocoderStatus.OK) {
+
+				   // Recenter the map over the address
+				   map.setCenter(results[0].geometry.location);
+				   console.log(results, status)
+				} else {
+
+				   // Show an error message with the status if our request fails
+				   alert("Geocoding was not successful - STATUS: " + status);
+				}
+
+				// Add the marker to our existing map
+				var marker = new google.maps.Marker({
+					position: (results[0].geometry.location),
+					map: map
+				});
+				var infowindow = new google.maps.InfoWindow({
+				   content: "Changing the world, one programmer at a time."
+				});
+				   infowindow.open(map, marker);
+
+
+				swal("Nice!", "Searching for " + inputValue, "success");
+			});
+		});
+	}
+
+	// Open the window using our map and marker
+	// infowindow.open(map, marker);
+	button.addEventListener("click", search)
 })();
