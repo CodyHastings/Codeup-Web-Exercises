@@ -1,1 +1,96 @@
-Hello WOrld
+<!DOCTYOE html>
+<html>
+<head>
+	<title>testing collision</title>
+	<style type="text/css"> 
+.block{
+ height: 100px;
+ width: 100px;
+}
+.one{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: lightblue;
+  &:before{
+    content: '= a =';
+    display: block;
+    text-align: center;
+  }
+}
+.two{
+  &:before{
+    content: '= b =';
+    display: block;
+    text-align: center;
+  }
+  position: absolute;
+  top: 50px;
+  right: 200px;
+  background-color: lime;
+}
+.current_target{
+  color: red;
+}
+</style>
+</head>
+<body>
+<div class="first_chapter"></div> 
+||
+<div class="second_chapter"></div>
+||
+<div class="third_chapter"></div>
+||
+<div class="fourth_chapter"></div>
+=
+<div class="result"></div>
+<div class="block one"></div>
+<div class="block two"></div>
+
+<script type="text/javascript">
+function redraw( event, ui ) {
+  $(this).html(
+    'x : '+$(this).offset().left+'<br>'+
+    'y : '+$(this).offset().top+'<br>'+
+    'height: '+$(this).outerHeight()+'<br>'+
+    'width : '+$(this).outerWidth())
+    .data('coordinates',{
+      x: $(this).offset().left,
+      y: $(this).offset().top,
+      height: $(this).outerHeight(),
+      width: $(this).outerWidth()
+    });
+  var a = $('.one').data('coordinates');
+  var b = $('.two').data('coordinates');
+  if(!(a && b)){
+    return false;
+  }
+  $('.first_chapter').text('(( a.y: ' + a.y + ' + a.h: ' + a.height + ' ) < ( b.y: ' + b.y + ' ))')
+    .css('color',(((a.y + a.height) < (b.y))?'green':'red'));
+  $('.second_chapter').text('( a.y: ' + a.y + ' > ( b.y: ' + b.y + ' + b.h: ' + b.height + ' ))')
+    .css('color',((a.y > (b.y + b.height))?'green':'red'));
+  $('.third_chapter').text('(( a.x: ' + a.x + ' + a.w: ' + a.width + ') < b.x: ' + b.x + ')')
+    .css('color',(((a.x + a.width) < b.x)?'green':'red'));
+  $('.fourth_chapter').text('( a.x: ' + a.x + ' > ( b.x: ' + b.x + ' + b.w: ' + b.width + ' ))')
+    .css('color',((a.x > (b.x + b.width))?'green':'red'))
+  $('.result').text('!' + !isCollide(a, b));
+}
+function isCollide(a, b) {
+    return !(
+        ((a.y + a.height) < (b.y)) ||
+        (a.y > (b.y + b.height)) ||
+        ((a.x + a.width) < b.x) ||
+        (a.x > (b.x + b.width))
+    );
+}
+$(function (){
+  $('.block').draggable({
+    drag: redraw
+  }).each(function(){
+    console.log(this,'!');
+    redraw.call(this);
+  });
+});
+</script>
+</body>
+</html>

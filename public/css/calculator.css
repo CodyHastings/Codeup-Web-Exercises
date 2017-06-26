@@ -1,8 +1,6 @@
 
 body {
 	background-color:black;
-	background-image: url(../img/calcback.jpeg);
-	background-size: cover;
 }
 
 /****************************/
@@ -13,8 +11,8 @@ body {
 	min-height:320px;
     min-width: 320px;
     margin-top: 10%;
+    margin-left: auto; 
     margin-right: auto;
-    margin-left: auto;
     border-radius:7px;
     cursor: crosshair;
 	background: #262626;
@@ -65,18 +63,53 @@ body {
 	color:#9FF7F7;
 }
 
-.second-row ul,
-.third-row ul,
-.fourth-row ul,
-.fifth-row ul {
-	margin-top:-10px;
+.second-row 
+.third-row 
+.fourth-row 
+.fifth-row {
+	margin-top: 10px;
 }
 
 #clear {
 	color: red;
+	width: 40%;
+	height: 6%;
 }
 
 .buttons {
-	margin-left:-17px;
+	margin-left:20px;
 	margin-top:20px;
 }
+.numbtns{
+	width: 20%;
+	height: 10%;
+}
+.opbtns{
+	width: 30%;
+	height: 10%;
+}
+#equals{
+	width:20%;
+	height: 10%;
+}
+#decimal{
+	width:20%;
+	height: 10%;
+}
+#handiv{
+height:61px;
+width:53px;
+overflow: hidden;
+background-image: url(../img/Linkwalk.gif);
+background-repeat: no-repeat;
+top: 40;
+left: 40;
+/*  animation: sprite 4s;
+}
+@keyframes sprite {
+ 100% {
+   left:200px;
+ }
+}*/
+
+
