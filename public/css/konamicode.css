@@ -1,0 +1,33 @@
+#firstSprite{
+	border: 5px solid red;
+	height: 364px;
+	width: 445px;
+	overflow: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	/*animation-name: catpheus;*/
+
+}
+/*@keyframes catpheus {
+	100% {left: 800px}*/
+}
+#firstSpriteImg {
+	position: relative;
+	top: -5px;
+	left: -5px;
+
+}
+.codeuparrowdiv{
+position: relative;
+padding: 8px;
+
+
+}
+
+.hidden{
+	visibility: hidden;
+
+	
+}

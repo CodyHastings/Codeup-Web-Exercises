@@ -15,10 +15,10 @@ var number = Math.floor(Math.random() * 201) - 100;
 function isNegative(input){
 	if (input < 0){
 		console.log("The number " + input + " is negative");
-		return false;
+		return true;
 	} else if (number > 0) {
 		console.log("The number " + input + " is positive");
-		return true
+		return false
 	} else {
 		console.log("The number is 0");
 		return false
@@ -42,6 +42,7 @@ var total = 0;
 		}
 		var avg = total / arr.length;
 		console.log(parseInt(avg));
+		return parseInt(avg)
 	}
 
 average([1, 2, 3]) // 2
@@ -62,6 +63,7 @@ function countOdds(arr){
 		}
 	})
 		console.log("there are " + oddNumbers.length + " odd numbers in the array of " + arr);
+		return oddNumbers.length
     
 };
  countOdds([1, 2, 3]) // 2
@@ -71,22 +73,70 @@ function countOdds(arr){
 
 // 4 		Write a function named convertNameToObject that accepts a string that contains a first name and last name separated by a space, and returns an object with properties firstName and lastName.
 
+console.log("QUESTION 4")
+
+// var input = prompt("please enter a first and last name seperated by a space")
+
+
+function convertNameToObject(string){
+	var objectName = {
+		firstName : string.split(" ")[0],
+		LastName : string.split(" ")[1] 
+	}
+	console.log(objectName);
+	return objectName;
+
+}
+
+// convertNameToObject(input);
+convertNameToObject('Harry Potter')
+convertNameToObject('Ron Weasley')
 
 
 //  convertNameToObject('Harry Potter') // {firstName: 'Harry', lastName: 'Potter'}
 //  convertNameToObject('Ron Weasley') // {firstName: 'Ron', lastName: 'Weasley'}
-// 5 		Write a function named fiveTo that accepts a number and returns an array of the integers from 5 up to (but not including) the passed number.
 
-//  fiveTo(10) // [5, 6, 7, 8, 9]
-//  fiveTo(6) // [5]
+
+
+
+
+
+// 5 		Write a function named fiveTo that accepts a number and returns an array of the integers from 5 up to (but not including) the passed number.
+console.log("QUESTION 5")
+
+var array = []
+
+function fiveTo(number){
+	for (i = 5; i < number; i++){
+		array.push(i);
+	}
+	return array
+}
+
+
+ fiveTo(10); // [5, 6, 7, 8, 9]
+ fiveTo(6) // [5]
 // 6 		Write a function named upperCaseLastNames that accepts an array of objects where each object has properties firstName and lastName and returns the same array of objects with each last name capitalized
 
-//  var names = [
-//      {firstName: 'Harry', lastName: 'Potter'},
-//      {firstName: 'Ron', lastName: 'weasley'},
-//      {firstName: 'Hermione', lastName: 'granger'}
-//  ];
-//  upperCaseLastNames(names);
+console.log("QUESTION 6")
+
+
+ var names = [
+     {firstName: 'Harry', lastName: 'Potter'},
+     {firstName: 'Ron', lastName: 'weasley'},
+     {firstName: 'Hermione', lastName: 'granger'}
+ ];
+
+
+
+
+function upperCaseLastNames(names){
+	names.forEach(function(name){
+		name.lastName = name.lastName.charAt(0).toUpperCase() + name.lastName.slice(1);
+	});
+	return names;
+}
+ upperCaseLastNames(names);
  /*
  [
     {firstName: 'Harry', lastName: 'Potter'},
