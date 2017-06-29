@@ -9,6 +9,11 @@
 	</style>
 </head>
 <body>
+  <div>
+    <h1>Would you like to sign up for our newsletter?</h1>
+    <span>X</span>
+  </div>
+  <h2 id="sneakyh2" class="invisible">Register for a membership!!!!</h2>
 	<dl>
   		<dt>How did Yellowstone get its name?</dt>
   		<dd>Yellowstone National Park is named after the Yellowstone River, the major river running through the park. According to French-Canadian trappers in the 1800s, they asked the name of the river from the Minnetaree tribe, who live in what is now eastern Montana. They responded “Mi tse a-da-zi,” which literally translates as “Rock Yellow River.” The trappers translated this into French as “Roche Jaune” or “Pierre Jaune.” In 1797, explorer-geographer David Thompson used the English translation—“Yellow Stone.” Lewis and Clark called the Yellowstone River by the French and English forms. Subsequent use formalized the name as “Yellowstone.</dd>
@@ -33,18 +38,79 @@
 	</dl>
 
 
+
+<h3 id="national-parks-heading">National Parks</h3>
+<ul class="invisible" id="national-parks">
+    <li>Arches</li>
+    <li>Badlands</li>
+    <li>Carlsbad Caverns</li>
+    <li>Denali</li>
+    <li>Everglades</li>
+</ul>
+<h3>State Parks of Texas</h3>
+<ul class="invisible" id="state-parks-texas">
+    <li>Abilene</li>
+    <li>Big Bend</li>
+    <li>Choke Canyon</li>
+    <li>Davis Mountains</li>
+    <li>Enchanted Rock</li>
+</ul>
+<h3>State Parks of Texas</h3>
+<ul class="invisible" id="state-parks-texas">
+    <li>Abilene</li>
+    <li>Big Bend</li>
+    <li>Choke Canyon</li>
+    <li>Davis Mountains</li>
+    <li>Enchanted Rock</li>
+</ul>
+<button></button>
+
+
+
+
+
+
+
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 <script type="text/javascript">
 "use strict"
 
 var question = $("dt");
 var definition = $("dd");
+var ul = $("ul");
+
 
 question.click(function(){
 	$(this).next().toggleClass("invisible");
-})
+});
 
 definition.addClass("invisible");
+
+
+$("button").click(function(){
+    ul.each(function(index, element) {
+      $(element).children().last().css("background-color", "yellow");
+    });
+  
+});
+
+$("h3").click(function(){
+  $(this).next().css("font-weight", "bold");
+});
+
+
+$("li").click(function(){
+  $(this).parent().children().first().css("color", "blue");
+})
+
+$("span").click(function(){
+  $("div").hide()
+})
+$("h3").click(function(){
+  $(this).next().slideToggle();
+})
+$("#sneakyh2").delay(8000).fadeIn()
+
 
 </script>
 
