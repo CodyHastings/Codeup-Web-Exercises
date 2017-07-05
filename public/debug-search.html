@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Books</title>
+    <link
+        rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+        integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+        crossorigin="anonymous"
+    >
+</head>
+<body>
+<article class="container">
+    <h1>Good reads</h1>
+    <div class="text-right">
+        <form class="form-inline">
+            <div class="form-group">
+                <input type="text" class="form-control" id="friend" placeholder="Jane">
+            </div>
+            <button type="button" id="search" class="btn btn-default">Search</button>
+        </form>
+    </div>
+    <br>
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>
+                <a id="sort" class="header" href="#">Friend</a>
+            </th>
+            <td class="header">Books</td>
+        </tr>
+        </thead>
+        <tbody id="insertFriends">
+        </tbody>
+    </table>
+</article>
+<script
+    src="https://code.jquery.com/jquery-2.2.4.min.js"
+    integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+    crossorigin="anonymous">
+</script>
+<script
+    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+    integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+    crossorigin="anonymous">
+</script>
+<script>
+    "use strict";
+
+
+        var tbody = $('#insertFriends');
+        var sortName = $('#sort');
+        var search = $('#search');
+        var friends = [
+            {name: 'Oliver', books: 'Ansible for DevOps, Servers for hackers'},
+            {name: 'Barry', books: 'Working effectively with unit tests, 50 quick ideas four tests'},
+            {name: 'Jessica', books: 'Understanding the 4 rules of simple design, Principle package design'},
+            {name: 'Clark', books: 'Selling test driven projects'}
+        ];
+
+        function buildTableRows(){
+            $(friends).each(function(index, element){
+                $("#insertFriends").append('<tr><td>' + friends[index].name + '</td><td>' + friends[index].books + '</td></tr>');
+            });
+        };
+        var sortFriendsByName = function(friends) {
+            friends.sort(function (friendA, friendB) {
+                if (friendA.name < friendB.name) {
+                    return -1;
+                }
+                if (friendA.name > friendB.name) {
+                    return 1;
+                }
+                return 0;
+            });
+        };
+        var sortTable = function (event) {
+            console.log("friends clicked")
+            event.preventDefault();
+            tbody.html("");
+            sortFriendsByName(friends);
+            tbody.html(buildTableRows(friends));
+        };
+
+        buildTableRows(friends);
+        $("#sort").click(sortTable);
+
+
+
+
+    // var buildTableRows = function (friends) {
+    //     var table = '';
+    //     friends.forEach(function (friend)  {
+    //         table += '<tr><td>' + friend.name + '</td><td>' + friend.books.join(', ') + '</td></tr>';
+    //     });
+    //     return table;
+    // };
+    // var sortFriendsByName = function(friends) {
+    //     friends.sort(function (friendA, friendB) {
+    //         if (friendA.name < friendB.name) {
+    //             return -1;
+    //         }
+    //         if (friendA.name > friendB.name) {
+    //             return 1;
+    //         }
+    //         return 0;
+    //     });
+    // };
+    // var filterFriendsByName = function (friends, name) {
+    //     return friends.filter(function (friend) {
+    //         return friend.name.indexOf(name) !== -1;
+    //     });
+    // };
+    // var sortTable = function (event) {
+    //     event.preventDefault();
+    //     sortFriendsByName(friends);
+    //     tbody.html(buildTableRows(friends));
+    // };
+    // tbody.html(buildTableRows(friends));
+    // search.click(filterFriendsByName(friends, $('#friend').val()));
+    // // sortFriendsByName.click(sortTable);
+</script>
+</body>
+</html>

@@ -45,15 +45,19 @@ $("button").click(function(){
         
     }).done(function(data) {
         $("#insertProducts").empty()
+        console.log(data)
         
         $(data).each(function(index, element){
             $("#insertProducts").append("<tr><td>" + data[index].title + "</td><td>" + data[index].quantity + "</td><td>" + data[index].price + "</td><td> " + data[index].categories + "</td></tr>" );
                 
                  
         });
+    }).fail(function(jqXhr, status, error) {
+        alert("There was an error! Check the console for details");
+        console.log("Response status: " + status);
+        console.log("Error object: " + error);
     });
-})
-        
+});
 
 </script>
 

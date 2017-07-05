@@ -22,12 +22,18 @@
         $.get("/data/blog.json", {
         
     }).done(function(data) {
-        $(data).each(function(index, element){
-            console.log(data)
-            $("#post").html(data[index].content)
+            updatetext(data);
         });
                         
-    });
+        function updatetext(data){
+            var post = $("#post")
+            $(data).each(function(index, element){
+                post.append("<h1>" + data[index].title + "</h1>" + "<p>" + data[index].content + "</p>" + "<h3>" + data[index].date + "</h3>" + "<p>categories:<h6>" + data[index].categories.join(", ") + "</h6></p>" );
+            
+            
+            });
+        };
+
 
         
 
