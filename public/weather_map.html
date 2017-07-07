@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
+	<title>Weather Map</title>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<style type="text/css">
+		.col{
+			background-color: orange;
+			height: 300px;
+			width: 150px;
+			display: inline-block;
+		}
+		#container {
+			
+			padding: 50px;
+			margin: 40px;
+		}
+		.days {
+			width: 150px;
+			display: inline-block;
+			background-color: maroon;
+			color: white;
+		}
+		#map-canvas{
+			margin: 20px;
+			height: 500px;
+			width: 1076px;
+			border: solid black;
+		}
+		body {
+			background-image: url("img/clouds.jpg");
+		}
+	</style>
+
+</head>
+<body>
+	<div id="container">
+		<div class="row">
+			<div class ="days"><h4>Monday</h4></div>
+			<div class ="days"><h4>Tuesday</h4></div>
+			<div class ="days"><h4>Wednesday</h4></div>
+			<div class ="days"><h4>Thursday</h4></div>
+			<div class ="days"><h4>Friday</h4></div>
+			<div class ="days"><h4>Saturday</h4></div>
+			<div class ="days"><h4>Sunday</h4></div>
+		</div>
+		<div class="row">
+
+			<div class="col" id="box1"></div>
+			<div class="col" id="box2"></div>
+			<div class="col" id="box3"></div>
+			<div class="col" id="box4"></div>
+			<div class="col" id="box5"></div>
+			<div class="col" id="box6"></div>
+			<div class="col" id="box7"></div>
+		</div>
+
+	</div>
+	<div id="map-canvas"></div>
+
+
+	<script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
+
+	<!-- Bootstrap JS -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkKIRdfwscMTtobPr_NJiWt8TBmv_CmDU"></script>
+
+
+	<!-- Custom JS -->
+	<script> 
+		"use strict";
+		$(document).ready(function() {
+			makeRequest();
+			var mapData
+
+
+			function makeRequest(){
+				$.get("http://api.openweathermap.org/data/2.5/forecast/daily", {
+					APPID: "4993a42b16cb7ff33f17feb907a748a2", 
+					q: "San Antonio, Texas",
+					units: "imperial"
+				
+				}).done(function(data) {
+					console.log(data.list[0].temp.day);
+					console.log(data);
+					displayData(data);
+					mapData = data
+				
+				}).fail(function(jqXhr, status, error) {
+					alert("There was an error! Check the console for details");
+					console.log("Response status: " + status);
+					console.log("Error object: " + error);
+	
+				});
+			};	
+
+			function displayData(data){
+				for (var i = 0; i < 7; i++) {
+					$("#box" + (i + 1)).html("<img src='http://openweathermap.org/img/w/" + data.list[i].weather[0].icon + ".png'><p>Degrees: " + data.list[i].temp.day + "F</p><p>Clouds: " + data.list[i].clouds + "</p><p>Humidity: " + data.list[i].humidity + "</p><p>Pressure: " + data.list[i].pressure + "</p>")
+				}
+			}
+			var mapOptions = {
+				zoom: 19,
+				center: {
+					lat:  29.426791,
+					lng: -98.489602
+				}
+			};
+			var clickLat;
+        	var clickLon;
+			function initMap(){
+				var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+				map.addListener('click', function(e) {
+				placeMarker(e.latLng, map);
+				});
+				var marker;
+				var x = 0;
+				function placeMarker(position, map) {
+					if(x >= 1){
+						marker.setMap(null);
+					}
+					x++;
+					   marker = new google.maps.Marker({
+						 position: position,
+						 map: map
+					   });  
+					   map.panTo(position);
+			 
+					// var infowindow = new google.maps.InfoWindow({
+					//    content: "Temperature " + mapData.list[0].temp.day
+					// });
+					//    infowindow.open(map, marker);
+					$.get("http://api.openweathermap.org/data/2.5/forecast/daily", {
+						APPID: "4993a42b16cb7ff33f17feb907a748a2", 
+						lat: clickLat,
+                        lon: clickLon,
+						units: "imperial"
+				
+					}).done(function(position){
+						displayData(position);
+					});
+					   console.log(clickLat = position.lat());
+                       console.log(clickLon = position.lng());
+				};
+			
+			};
+				initMap();
+
+		});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	</script>
+
+</body>
+</html>

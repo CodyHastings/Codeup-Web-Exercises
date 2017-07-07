@@ -16,7 +16,7 @@
     <div class="text-right">
         <form class="form-inline">
             <div class="form-group">
-                <input type="text" class="form-control" id="friend" placeholder="Jane">
+                <input type="search" class="form-control" id="friend" placeholder="Jane">
             </div>
             <button type="button" id="search" class="btn btn-default">Search</button>
         </form>
@@ -85,6 +85,17 @@
 
         buildTableRows(friends);
         $("#sort").click(sortTable);
+        $("#search").click(filterFriendsByName)
+
+
+        function filterFriendsByName(friends) {
+            tbody.html("")
+            $("#insertFriends").append("<tr><td>" + $("#friend").val() + "</td></tr>")
+            // $("#insertFriends").append('<tr><td>' + friends[index].name + '</td><td>' + friends[index].books + '</td></tr>');
+            
+        };
+
+   
 
 
 

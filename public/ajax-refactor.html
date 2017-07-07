@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Online Store</title>
+	<style type="text/css">
+	#deathstardiv {
+		opacity: 0;
+	}
+	</style>
+</head>
+<body>
+
+<div id="header"><h1>My Tool Store</h1></div>
+
+<table id="products">
+	<thead>
+		<tr>
+			<th>Title</th>
+			<th>Quantity</th>
+			<th>Price</th>
+			<th>Categories</th>
+		</tr>
+	</thead>
+	<tbody id="insertProducts"></tbody>
+</table>
+
+<button id="deathstar">Click here to add the deathstar to your inventory of tools</button>
+<div id="deathstardiv"><img src="http://i.makeagif.com/media/3-10-2014/zARi7n.gif" alt="We Got Death Star"></div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+<script>
+(function() {
+	"use strict";
+
+	function addAJAXDeathStarToPage() {
+		$.get("http://swapi.co/api/starships/9/", {
+
+		}).done(function(data, status, request) {
+			console.log(data);
+			console.log(status);
+			$("#insertProducts").append("<tr><td>" + data.name + "</td><td>1</td><td>" + data.cost_in_credits + "</td><td>" + data.starship_class + "</td></tr>");       
+		}).fail(function(request, status, error) {
+			console.log(status);
+			console.log(error);
+		});  
+	}
+	
+	$("#deathstar").click(function() {
+		$("#deathstardiv").css("opacity", 1)
+		$("#header").html("<h1>We got Death Star</h1>").css("color", "white");
+		$("body").css("background-color", "black")
+		$("table").css("background-color", "papayawhip")
+		addAJAXDeathStarToPage();
+	});
+
+function makeRequest(url){
+	$.get(url, {
+
+	}).done(function(data) {
+		$("#insertProducts").empty()
+
+		$(data).each(function(index, element) {
+			$("#insertProducts").append("<tr><td>" + data[index].title + "</td><td>" + data[index].quantity + "</td><td>$" + data[index].price + "</td><td>" + data[index].categories + "</td></tr>");
+		});      
+
+	}).fail(function(jqXhr, status, error) {
+		alert("There was an error! Check the console for details");
+		console.log("Response status: " + status);
+		console.log("Error object: " + error);
+	});  
+
+}    
+
+makeRequest("/data/inventory.json")
+
+})();
+</script>
+
+</body>
+</html>

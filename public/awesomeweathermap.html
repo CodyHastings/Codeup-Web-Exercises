@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css"/>
+    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+    <style type="text/css">
+    #map{ 
+        height:500px; 
+    } 
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript">
+        getKey();
+
+            function getKey(){
+                $.ajax({
+                    url: "https://api.awhere.com/oauth/token",
+                    type: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                        "Authorization": "Basic {UGRjRcfOFFCPQAU9wwGJAHgArFGacuTo:LVnxhX1moQAbqjB7}"
+                    },
+                    data: {
+                        "grant_type": "client_credentials",
+                    }
+                    
+                }).done(function(data){
+                    
+                    console.log(data)
+                }).fail(function(jqXhr, status, error) {
+                    alert("There was an error! Check the console for details");
+                    console.log("Response status: " + status);
+                    console.log("Error object: " + error);
+    
+                });
+            }
+        var map = L.map('map').setView([38.1079412,-104.9736208], 6);
+        L.tileLayer('https://api.awhere.com/v2/imagery/weathermaps/base,cities,radar/tiles/{x},{y},{z}?token={accessToken}', {
+            maxZoom: 12,
+            accessToken: 'ABCD1234'
+        }).addTo(map);
+    </script>
+</body>
+</html>
