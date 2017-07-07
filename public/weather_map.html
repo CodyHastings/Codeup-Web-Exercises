@@ -8,44 +8,165 @@
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<style type="text/css">
 		.col{
-			background-color: orange;
-			height: 300px;
+			background-image: url("img/weatherbox.png");
+			height: 500px;
 			width: 150px;
 			display: inline-block;
+			text-align: center;
+			background-position: 0px -106px;
+
 		}
 		#container {
-			
-			padding: 50px;
+			padding-left: 60px;
+			padding-right: 60px;
 			margin: 40px;
 		}
 		.days {
 			width: 150px;
 			display: inline-block;
-			background-color: maroon;
+			background-image: url("img/weathertitle.png");
 			color: white;
 		}
 		#map-canvas{
-			margin: 20px;
+			margin-left: 80px;
+			padding: 50px;
 			height: 500px;
 			width: 1076px;
 			border: solid black;
+			position: absolute;
+			top: 500px;
+			left: 0;
+			margin-bottom: 150px;
+		}
+		#header{
+			text-align: center;
+			font-style:	italic;
+			color: white;
+			font-size: 50px;
 		}
 		body {
 			background-image: url("img/clouds.jpg");
 		}
+
+		@import url('http://fonts.googleapis.com/css?family=Alegreya+Sans:300');
+
+		.shimmer{
+			/* styling stuff */
+			font-family:"Alegreya Sans";
+			font-weight:300;
+			font-size:20px;
+			margin:0 auto;
+			padding: 0 40px;
+			text-align: center;
+			color: rgba(255,255,255,0.1);
+		}
+			.shimmer {
+			  /* the shimmer magic */
+			  background: -webkit-gradient(linear,left top,right top,from(#222),to(#222),color-stop(.5,#fff));
+			  background: -moz-gradient(linear,left top,right top,from(#222),to(#222),color-stop(.5,#fff));
+			  background: gradient(linear,left top,right top,from(#222),to(#222),color-stop(.5,#fff));
+			  -webkit-background-size: 125px 100%;
+			  -moz-background-size: 125px 100%;
+			  background-size: 125px 100%;
+			  -webkit-background-clip: text;
+			  -moz-background-clip: text;
+			  background-clip: text;
+			  -webkit-animation-name: shimmer;
+			  -moz-animation-name: shimmer;
+			  -webkit-animation-name: shimmer;
+			  animation-name: shimmer;
+			  -webkit-animation-duration: 2s;
+			  -moz-animation-duration: 2s;
+			  -webkit-animation-duration: 2s;
+			  animation-duration: 3s;
+			  -webkit-animation-iteration-count: infinite;
+			  -moz-animation-iteration-count: infinite;
+			  -webkit-animation-iteration-count: infinite;
+			  animation-iteration-count: infinite;
+			  background-repeat: no-repeat;
+			  background-position: 0 0;
+			  background-color: #222;
+			}
+
+			@-moz-keyframes shimmer {
+			  0% {
+				background-position: top left;
+			  }
+
+			  50% {
+				background-position: top right;
+			  }
+			  100% {
+				background-position: top left;
+			  }
+			}
+
+			@-webkit-keyframes shimmer {
+			  0% {
+				background-position: top left;
+			  }
+
+			  50% {
+				background-position: top right;
+			  }
+			  100% {
+				background-position: top left;
+			  }
+			}
+
+			@-o-keyframes shimmer {
+			  0% {
+				background-position: top left;
+			  }
+
+			  50% {
+				background-position: top right;
+			  }
+			  100% {
+				background-position: top left;
+			  }
+			}
+
+			@-ms-keyframes shimmer {
+			  0% {
+				background-position: top left;
+			  }
+
+			  50% {
+				background-position: top right;
+			  }
+			  100% {
+				background-position: top left;
+			  }
+			}
+
+			@keyframes shimmer {
+			  0% {
+				background-position: top left;
+			  }
+
+			  50% {
+				background-position: top right;
+			  }
+			  100% {
+				background-position: top left;
+			  }
+			}
+
 	</style>
 
-</head>
+		</head>
 <body>
+	<div id="header" class="shimmer">7 Day Forcast!</div>
 	<div id="container">
 		<div class="row">
-			<div class ="days"><h4>Monday</h4></div>
-			<div class ="days"><h4>Tuesday</h4></div>
-			<div class ="days"><h4>Wednesday</h4></div>
-			<div class ="days"><h4>Thursday</h4></div>
-			<div class ="days"><h4>Friday</h4></div>
-			<div class ="days"><h4>Saturday</h4></div>
-			<div class ="days"><h4>Sunday</h4></div>
+			<div class ="days"><h4 class="shimmer"><em>Monday</em></h4></div>
+			<div class ="days"><h4 class="shimmer"><em>Tuesday</em></h4></div>
+			<div class ="days"><h4 class="shimmer"><em>Wednesday</em></h4></div>
+			<div class ="days"><h4 class="shimmer"><em>Thursday</em></h4></div>
+			<div class ="days"><h4 class="shimmer"><em>Friday</em></h4></div>
+			<div class ="days"><h4 class="shimmer"><em>Saturday</em></h4></div>
+			<div class ="days"><h4 class="shimmer"><em>Sunday</em></h4></div>
 		</div>
 		<div class="row">
 
@@ -58,8 +179,8 @@
 			<div class="col" id="box7"></div>
 		</div>
 
+		<div id="map-canvas"></div>
 	</div>
-	<div id="map-canvas"></div>
 
 
 	<script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
@@ -75,6 +196,9 @@
 		$(document).ready(function() {
 			makeRequest();
 			var mapData
+			var starDestroyer
+			var streetfighter
+			var map
 
 
 			function makeRequest(){
@@ -110,14 +234,26 @@
 				}
 			};
 			var clickLat;
-        	var clickLon;
+			var clickLon;
 			function initMap(){
-				var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+				map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 				map.addListener('click', function(e) {
 				placeMarker(e.latLng, map);
 				});
 				var marker;
 				var x = 0;
+				var imageBounds = {
+    				north: 29.428018143639696,
+    				south: 29.42599723817197,
+    				east: -98.48674092102051,
+   					west: -98.48974406719208
+  				};
+
+
+  				starDestroyer = new google.maps.GroundOverlay(
+      				'img/stardestroyer.png',
+      				imageBounds);
+  					starDestroyer.setMap(map);
 				function placeMarker(position, map) {
 					if(x >= 1){
 						marker.setMap(null);
@@ -136,44 +272,35 @@
 					$.get("http://api.openweathermap.org/data/2.5/forecast/daily", {
 						APPID: "4993a42b16cb7ff33f17feb907a748a2", 
 						lat: clickLat,
-                        lon: clickLon,
+						lon: clickLon,
 						units: "imperial"
 				
 					}).done(function(position){
 						displayData(position);
 					});
 					   console.log(clickLat = position.lat());
-                       console.log(clickLon = position.lng());
+					   console.log(clickLon = position.lng());
 				};
 			
 			};
 				initMap();
+			function hadouken(){
+
+				var hadBounds = {
+					north: 29.428008143639696,
+    				south: 29.42599723817197,
+    				east: -98.48674492102051,
+   					west: -98.48974406719208
+  					};
+  					
+				  	streetfighter = new google.maps.GroundOverlay(
+      				'img/star_wars_.png',
+      				hadBounds);
+  					streetfighter.setMap(map);
+			}
+			hadouken();
 
 		});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	</script>
-
 </body>
 </html>
