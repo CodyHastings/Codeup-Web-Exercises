@@ -193,11 +193,10 @@
 	<!-- Custom JS -->
 	<script> 
 		"use strict";
-		$(document).ready(function() {
+		// $(document).ready(function() {
 			makeRequest();
 			var mapData
 			var starDestroyer
-			var streetfighter
 			var map
 
 
@@ -284,23 +283,52 @@
 			
 			};
 				initMap();
-			function hadouken(){
 
-				var hadBounds = {
-					north: 29.428008143639696,
+
+			function moveStarDestroyer(){
+				  document.addEventListener('keydown', function (event) {
+			      const keyName = event.key;
+			      if (event.keyCode == 37 || event.keyCode == 38 || event.keyCode == 39 || event.keyCode == 40) {
+			        event.preventDefault();
+			      }
+			      switch (keyName.toLowerCase()) {
+			        case "w":
+			        case "arrowup":           // 38 = ArrowUp
+			        	imageBound.north
+			        	break;
+			        case "s":
+			        case "arrowdown":         // 40 = ArrowDown
+			        	moveSharker(-1, 0);
+			        	break;
+			        case "a":
+			        case "arrowleft":         // 37 = ArrowLeft
+			        	moveSharker(0, 1);
+			        	break;
+			        case "d":
+			        case "arrowright":        // 39 = ArrowLeft
+			        	moveSharker(0, -1);
+			        	break;
+			     	}
+			    }, false);
+					 imageBounds = {
+    				north: 29.428018143639696,
     				south: 29.42599723817197,
-    				east: -98.48674492102051,
+    				east: -98.48674092102051,
    					west: -98.48974406719208
-  					};
-  					
-				  	streetfighter = new google.maps.GroundOverlay(
-      				'img/star_wars_.png',
-      				hadBounds);
-  					streetfighter.setMap(map);
-			}
-			hadouken();
+  				};
 
-		});
+				  	starDestroyer = new google.maps.GroundOverlay(
+      				'img/stardestroyer.png',
+      				imageBounds);
+  					starDestroyer.setMap(map);
+
+  					
+	
+  					
+			}
+			
+
+		// });
 	</script>
 </body>
 </html>
