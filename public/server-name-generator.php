@@ -8,10 +8,23 @@
 // combining a random adjective with a random noun.
 // Each time you refresh the page a different result should be displayed.
 
-$adjarr = ["Sassy", "Tremendous", "Old-Fashioned", "Mere", "Substantial", "Outrageous", "Ruthless", "Puzzled", "Redundant", "Jazzy", "Atomic", "Quaint", "Wooden", "Shiny", "Ruddy"];
+function pageController()
+{
 
-$nounarr = ["Coffee", "Covfefe","Hand-Shake", "HI-5","Fish", "Jams","Lyrics", "Battle","Doug", "Emmett","Avery", "Narwhals", "Yo-yo", "Elbows", "Knee-caps"];
+	$adjarr = ["Sassy", "Tremendous", "Old-Fashioned", "Mere", "Substantial", "Outrageous", "Ruthless", "Puzzled", "Redundant", "Jazzy", "Atomic", "Quaint", "Wooden", "Shiny", "Ruddy"];
 
+	$nounarr = ["Coffee", "Covfefe","Hand-Shake", "HI-5","Fish", "Jams","Lyrics", "Battle","Doug", "Emmett","Avery", "Narwhals", "Yo-yo", "Elbows", "Knee-caps"];
+
+	$data = [
+		"adjarr" => $adjarr,
+		"nounarr" => $nounarr
+	];
+
+
+	
+	return $data;
+
+}
 function randomElm($adj, $noun)
 {
 	$adjindex = array_rand($adj);
@@ -21,10 +34,7 @@ function randomElm($adj, $noun)
 
 }
 
-// function serverName()
-// {
-
-// }
+extract(pageController());
 
 $serverName = randomElm($adjarr, $nounarr);
 
@@ -37,7 +47,7 @@ $serverName = randomElm($adjarr, $nounarr);
 </head>
 <body>
 
-	<h1><?php echo $serverName ?> </h1>
+	<h1><?= $serverName ?> </h1>
 
 </body>
 </html>
