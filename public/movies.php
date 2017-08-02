@@ -70,14 +70,8 @@ function pageController($allMovies)
     $data = [];
     var_dump($_GET);
     
-    // If the $_GET request is empty, show every movie
-    
-    // If $_GET['genre'] holds 'adventure', make $movies hold movies with 'adventure' as a genre.
-
     if(isset($_GET['genre'])) {
-        // make a new array called $movies
-        // iterate through the allMovies array
-        // if any movie has the genre of sci-fi, push that array onto $movies;
+
 
         $genre = $_GET['genre'];
         $movies = [];
@@ -91,6 +85,34 @@ function pageController($allMovies)
 
         $data['movies'] = $movies;
         
+    } elseif (isset($_GET['release'])) {
+
+        $release = $_GET['release'];
+        $movies = [];
+
+        foreach($allMovies as $movie) {
+            if($movie['release'] > 2000) {
+
+                $movies[] = $movie;
+            }
+        }
+
+        $data['movies'] = $movies;
+
+    } elseif (isset($_GET['title'])) {
+
+        $title = $_GET['title'];
+        $movies = [];
+
+        foreach($allMovies as $movie) {
+            if(strpos($movie['title'], $title) !== false) {
+
+                $movies[] = $movie;
+            }
+        }
+
+        $data['movies'] = $movies;
+
     } else {
         // set $data['movies'] to hold all movies (unless another request is made.)
         $data['movies'] = $allMovies;
@@ -114,22 +136,30 @@ extract(pageController($allMovies));
         <h1>Welcome to MovieLister!</h1>
 
         <section class="form">
-            <form>
                 <!-- Add an input to search by "title" -->
                 <!-- Add a form that has an input for "genre" -->
                 <!-- Add submit button -->
-            </form>
+                <h4>Search By Title</h4>
+                <form method="GET" action="movies.php">
+                <input type="text" name="title" value="">
+                <button type="submit">Go!</button>
+                </form>
+                <h4>Search By Genre</h4>
+                <form method="GET" action="movies.php">
+                <input type="text" name="genre" value="">
+                <button type="submit">Go!</button>
+                </form>
         </section>
 
         <section class="links">
             <!-- Add a link that will show all movies  -->
-            <a href="">Show all movies</a>
+            <a href="movies.php">Show all movies</a>
 
             <!-- Add a link that will show only movies with a release date after 2000 -->
-            <a href="">All movies released after 2000</a>
+            <a href="movies.php?release=2000">All movies released after 2000</a>
 
             <!-- Add a link that shows all movies w/ the comedy genre -->
-            <a href="">Show only comedies</a>
+            <a href="movies.php?genre=comedy">Show only comedies</a>
 
             <!-- Add a link that shows all movies w/ the sci-fi genre -->
             <a href="movies.php?genre=sci-fi">Show all Sci-Fi movies</a>
