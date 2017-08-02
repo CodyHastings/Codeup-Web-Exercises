@@ -105,7 +105,7 @@ function pageController($allMovies)
         $movies = [];
 
         foreach($allMovies as $movie) {
-            if(strpos($movie['title'], $title) !== false) {
+            if(stripos($movie['title'], $title) !== false) {
 
                 $movies[] = $movie;
             }
@@ -128,7 +128,29 @@ extract(pageController($allMovies));
 <html>
 <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>MovieLister!!!</title>
+    <style type="text/css">
+        body {
+            background-color: #22313F;
+        }
+        .container {
+            background-color: #67809F;
+            margin: 5%;
+            text-align: center;
+
+        }
+        .movieInfo {
+            background-color: #E67E22;
+            margin-top: 5%;
+            margin-bottom: 2%;
+            margin-left: 35%;
+            margin-right: 35%;
+            position: relative;
+            /*float:left;*/
+
+        }
+
+    </style>
 </head>
 <body>
     <main class="container">
@@ -141,13 +163,13 @@ extract(pageController($allMovies));
                 <!-- Add submit button -->
                 <h4>Search By Title</h4>
                 <form method="GET" action="movies.php">
-                <input type="text" name="title" value="">
-                <button type="submit">Go!</button>
+                    <input type="text" name="title" value="">
+                    <button type="submit">Go!</button>
                 </form>
                 <h4>Search By Genre</h4>
                 <form method="GET" action="movies.php">
-                <input type="text" name="genre" value="">
-                <button type="submit">Go!</button>
+                    <input type="text" name="genre" value="">
+                    <button type="submit">Go!</button>
                 </form>
         </section>
 
@@ -169,7 +191,7 @@ extract(pageController($allMovies));
             <!-- Show all the movies here -->
             <!-- Iterate through $movies array to show all or the filtered results-->
             <?php foreach($movies as $movie): ?>
-                <div>
+                <div class="movieInfo">
                     <h3>Title: <?= $movie['title'] ?></h3>
                     <p>Released in: <?= $movie['release'] ?></p>
                     <p>Genres: <?= implode(", ", $movie['genre']) ?></p>
