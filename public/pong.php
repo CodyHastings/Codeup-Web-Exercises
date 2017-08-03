@@ -1,16 +1,16 @@
 <?php 
-
+require 'functions.php';
 
 
 function pageController(){
 
 
 
-if (isset($_GET["was"])){
-	if($_GET["was"] == "hit"){
-		$number = $_GET["count"] + 1;
+if (inputHas("was")){
+	if(inputGet("was") == "hit"){
+		$number = inputGet("count") + 1;
 		$gameOver = null;
-	} else if ($_GET["was"] == "miss"){
+	} else if (inputGet("was") == "miss"){
 		$gameOver = "GAME OVER YOU MISSED!!!";
 		$number = 0;
 
