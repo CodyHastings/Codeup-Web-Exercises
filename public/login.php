@@ -15,12 +15,14 @@ everything works as expected. -->
 
 
 <?php
-	var_dump($_POST);
+session_start();
+require_once 'functions.php';
+
+
 
 function pageController() 
 {
 
-	session_start();
 	if (isset($_SESSION['logged_in_user'])){
 		header("Location:authorized.php");
 	}
@@ -28,10 +30,10 @@ function pageController()
 
 
 
-	if (isset($_POST['username']) && isset($_POST['password'])){
+	if (inputHas('username') && inputHas('password')){
 
-		$username = $_POST['username'];
-		$password = $_POST['password'];
+		$username = inputGet('username');
+		$password = inputGet('password');
 
 
 	} else {

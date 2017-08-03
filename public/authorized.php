@@ -1,4 +1,5 @@
 <?PHP
+require_once 'functions.php';
 	session_start();
 
 function pageController() 
@@ -12,12 +13,17 @@ function pageController()
 		die();
 	} 
 
-	if (isset($_POST['logout'])) {
+	if (inputHas('logout')) {
 		logOut();
 		var_dump($_POST['logout']);
 		header("Location:login.php");
 		die();
 	}
+
+	$username = escape($_SESSION['logged_in_user']);
+
+
+	return ['username' => $username];
 
 }
 
@@ -38,7 +44,7 @@ function logOut()
 
 }
 
-pageController();
+extract(pageController());
 
 ?>
 
@@ -50,7 +56,7 @@ pageController();
 </head>
 <body>
 
-<h1>Thank you for logging in <?= $_SESSION['logged_in_user']?></h1>
+<h1>Thank you for logging in <?= $username?></h1>
 
 <form method="POST">
 	<button name="logout" type="submit">Log out</button>

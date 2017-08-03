@@ -25,6 +25,6 @@ function escape($input){
     if(!is_string($input)){
         return false;
     } else {
-        return safe($string);
+        return safe($input);
     }
 }
