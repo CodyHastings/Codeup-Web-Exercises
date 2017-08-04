@@ -1,5 +1,5 @@
 <?php 
-require 'functions.php';
+require_once '../Input.php';
 
 
 
@@ -7,11 +7,11 @@ function pageController(){
 
 
 
-if (inputHas("was")){
-	if(inputGet("was") == "hit"){
-		$number = inputGet("count") + 1;
+if (Input::has("was")){
+	if(Input::get("was") == "hit"){
+		$number = Input::get("count") + 1;
 		$gameOver = null;
-	} else if (inputGet("was") == "miss"){
+	} else if (Input::get("was") == "miss"){
 		$gameOver = "GAME OVER YOU MISSED!!!";
 		$number = 0;
 
