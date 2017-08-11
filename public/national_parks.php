@@ -5,7 +5,8 @@ require_once '../Input.php';
 function pageController($dbc)
 {
 
-if (!empty($_REQUEST)) {
+	
+if (!empty($_REQUEST) && is_numeric(Input::get('pageNum')) && Input::get('pageNum') >= 1) {
 	$number = Input::get('pageNum');
 	$offset = ($number-1) * 4;
 
@@ -62,8 +63,19 @@ extract(pageController($dbc));
 	<?PHP endforeach ?>
 </table>
 
-	<button id="bt1">Prev </button>
-	<button id="bt2">Next </button>
+<!-- <form>
+	
+<input>
+<input>
+<input>
+<input>
+<input>
+
+
+
+</form> -->
+<button id="bt1">Prev </button>
+<button id="bt2">Next </button>
 
 	<h1>Page <?= $pageNum ?> </h1>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
