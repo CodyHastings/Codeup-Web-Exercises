@@ -12,6 +12,7 @@ create table if not exists national_parks(
   location varchar(300) not null,
   date_established date not null,
   area_in_acres double(12,2) not null,
+  description varchar(400),
   primary key (id)
 );';
 
