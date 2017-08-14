@@ -6,23 +6,43 @@ function pageController($dbc)
 {
 
 	
-if (!empty($_REQUEST) && is_numeric(Input::get('pageNum')) && Input::get('pageNum') >= 1) {
-	$number = Input::get('pageNum');
-	$offset = ($number-1) * 4;
+	if (!empty($_GET) && is_numeric(Input::get('pageNum')) && Input::get('pageNum') >= 1) {
+		$number = Input::get('pageNum');
+		$offset = ($number - 1) * 4;
 
-	$stmt = $dbc->query("SELECT * FROM national_parks limit 4 offset $offset;");
-	$stmt->fetch(PDO::FETCH_ASSOC);
+		$stmt = $dbc->query("SELECT * FROM national_parks limit 4 offset $offset;");
+		$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-	$data = ['pageNum' => $number, 'stmt' => $stmt];
- 
-}else{
-	$stmt = $dbc->query("SELECT * FROM national_parks limit 4 ;");
-	$stmt->fetch(PDO::FETCH_ASSOC);
 
-	$data = ['pageNum' => 1, 'stmt' => $stmt];
-	
-}
+		$data = ['pageNum' => $number, 'results' => $results];
+	 
+	}else{
+		$stmt = $dbc->query("SELECT * FROM national_parks limit 4 ;");
+		$stmt->fetch(PDO::FETCH_ASSOC);
 
+		$data = ['pageNum' => 1, 'results' => $results];
+		
+	}
+
+	if (!empty($_POST)){
+		$name = Input::get('name');
+		$location = Input::get('location');
+		$date_established = Input::get('date_established');
+		$area_in_acres = Input::get('area_in_acres');
+
+
+		$stmt = $dbc->prepare("insert into national_parks (`name`,`location`, `date_established`, `area_in_acres`)
+			values (:name, :location, :date_established, :area_in_acres);");
+
+		$stmt->bindValue(':name', $name, PDO::PARAM_STR);
+		$stmt->bindValue(':location', $location, PDO::PARAM_STR);
+		$stmt->bindValue(':date_established', $date_established, PDO::PARAM_STR);
+		$stmt->bindValue(':area_in_acres', $area_in_acres, PDO::PARAM_STR);
+
+
+		 $stmt->execute();
+
+	}
 
 	return $data;
 
@@ -54,11 +74,18 @@ extract(pageController($dbc));
 		margin-left: 10%;
 		margin-right: 10%;
 	}
+	#formWrapper{
+		position: absolute;
+		margin-left: 10%;
+		margin-right: 10%;
+		left: 500px;
+		top: 200px;
+	}
 	h1 {
 		text-align: center;
 	}
 	.skewTable {
-		transform: skewX(20deg);
+		transform: skewX(45deg);
 	}
 
 	</style>
@@ -83,7 +110,7 @@ extract(pageController($dbc));
 			<th>Area in acres</th>
 		</tr>
 
-			<?PHP foreach ($stmt as $value) : ?>
+			<?PHP foreach ($results as $value) : ?>
 		<tr>
 			<td><?= $value['name'] ?></td>
 			<td><?= $value['location'] ?></td>
@@ -93,17 +120,19 @@ extract(pageController($dbc));
 			<?PHP endforeach ?>
 	</table>
 </div>
-
-<!-- <form>
-
-<input type="text" name="name">
-<input type="text" name="location">
-<input type="text" name="date_established">
-<input type="text" name="area_in_acres">
-
-
-
-</form> -->
+<div id="formWrapper">
+	<form method="POST">
+		<label for="name">Name</label>
+		<input type="text" name="name" id="name" required>
+		<label for="location">Location</label>
+		<input type="text" name="location" id="location"required>
+		<label for="date_established">Date Established</label>
+		<input type="date" name="date_established" id="date_established" required>
+		<label for="area_in_acres">Area In Acres</label>
+		<input type="text" name="area_in_acres" id="area_in_acres" required>
+		<button class="btn" type="submit">Add Park</button>
+	</form>
+</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -122,6 +151,8 @@ $(document).ready(function() {
 	];
 	canvas.width = window.innerWidth;
 	canvas.height = window.innerHeight - 20;
+
+
 
 	function randomIntFromRange(min,max) {
 		return Math.floor(Math.random() * (max - min + 1) + min);
@@ -192,7 +223,6 @@ $(document).ready(function() {
 
 
   	function dTable(){
-  		// $("#tableDiv").animate({"top": "-=2 * .2"},"fast")
   		$("#tableDiv").animate({
   			"top": "500"
   		});
@@ -218,7 +248,7 @@ $(document).ready(function() {
 			}
 	});
 	$("#bt2").click(function(){
-		if (parseInt(getRequest) == 15) {
+		if (parseInt(getRequest) == 16) {
 			window.location.href="http://codeup.dev/national_parks.php?pageNum=1";
 		}else{
 				window.location.href="national_parks.php?pageNum="+ (parseInt(getRequest) + 1);
