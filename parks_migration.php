@@ -1,6 +1,5 @@
 <?php
 
-require_once "park_logins.php";
 require_once "db_connect.php";
 
 

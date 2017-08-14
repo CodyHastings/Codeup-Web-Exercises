@@ -18,7 +18,7 @@ function pageController($dbc)
 	 
 	}else{
 		$stmt = $dbc->query("SELECT * FROM national_parks limit 4 ;");
-		$stmt->fetch(PDO::FETCH_ASSOC);
+		$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 		$data = ['pageNum' => 1, 'results' => $results];
 		
