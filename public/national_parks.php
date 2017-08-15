@@ -49,10 +49,12 @@ extract(pageController());
 	<title>National Parks!</title>
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<style type="text/css">
+
 	#can {
 		position: absolute;
+		z-index: -1;
 	}
-	#buttonWrap {
+/*	#buttonWrap {
 		position: absolute;
 		margin-left: 1%;
 		margin-right: 10%;
@@ -68,7 +70,7 @@ extract(pageController());
 		margin-right: 10%;
 		left: 500px;
 		top: 200px;
-	}
+	}*/
 	h1 {
 		text-align: center;
 	}
@@ -91,48 +93,52 @@ extract(pageController());
 </head>
 <body>
 <canvas id="can"></canvas>
-<div id="buttonWrap">
-<button class="btn btn-primary btn-block" id="bt1">Prev </button>
-<button class="btn btn-primary btn-block" id="bt2">Next </button>
-<button class="btn btn-success btn-block" id="addBall">Drop a Ball</button>
-<button class="btn btn-success btn-block" id="dropTable">Drop Table</button>
-</div>
+<h1 class="header"> National Parks!!!</h1>
+<div class="container">
+	<div class="row justify-content-md-center">
+		<div id="buttonWrap" class="col-md-3">
+			<button class="btn btn-primary btn-block" id="bt1">Prev </button>
+			<button class="btn btn-primary btn-block" id="bt2">Next </button>
+			<button class="btn btn-success btn-block" id="addBall">Drop a Ball</button>
+			<button class="btn btn-success btn-block" id="dropTable">Drop Table</button>
+		</div>
 
 
-<h1> National Parks!!!</h1>
-<div id="tableDiv">
-	<table class="table">
-		<tr>
-			<th>Park Name</th>
-			<th>Location</th>
-			<th>Date Established</th>
-			<th>Area in acres</th>
-		</tr>
+		<div id="tableDiv" class="col-lg-6">
+			<table class="table">
+				<tr>
+					<th>Park Name</th>
+					<th>Location</th>
+					<th>Date Established</th>
+					<th>Area in acres</th>
+				</tr>
 
-			<?PHP foreach ($results as $value) : ?>
-		<tr>
-			<td><?= $value['name'] ?></td>
-			<td><?= $value['location'] ?></td>
-			<td><?= $value['date_established'] ?></td>
-			<td><?= $value['area_in_acres'] ?></td>
-		</tr>
-			<?PHP endforeach ?>
-	</table>
-</div>
-<div id="formWrapper">
-	<form method="POST">
-		<label for="name">Name</label>
-		<input type="text" name="name" id="name" required>
-		<label for="location">Location</label>
-		<input type="text" name="location" id="location"required>
-		<label for="date_established">Date Established</label>
-		<input type="date" name="date_established" id="date_established" required>
-		<label for="area_in_acres">Area In Acres</label>
-		<input type="text" name="area_in_acres" id="area_in_acres" required>
-		<label for="description">Description</label>
-		<input type="textarea" name="description" id="description" required>
-		<button class="btn" type="submit">Add Park</button>
-	</form>
+					<?PHP foreach ($results as $value) : ?>
+				<tr>
+					<td><?= $value->name ?></td>
+					<td><?= $value->location ?></td>
+					<td><?= $value->date_established ?></td>
+					<td><?= $value->area_in_acres ?></td>
+				</tr>
+					<?PHP endforeach ?>
+			</table>
+		</div>
+		<div id="formWrapper" class="col-md-3">
+			<form method="POST">
+				<label for="name">Name</label>
+				<input type="text" name="name" id="name" required>
+				<label for="location">Location</label>
+				<input type="text" name="location" id="location"required>
+				<label for="date_established">Date Established</label>
+				<input type="date" name="date_established" id="date_established" required>
+				<label for="area_in_acres">Area In Acres</label>
+				<input type="text" name="area_in_acres" id="area_in_acres" required>
+				<label for="description">Description</label>
+				<input type="textarea" name="description" id="description" required>
+				<button class="btn" type="submit">Add Park</button>
+			</form>
+		</div>
+	</div>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -229,7 +235,6 @@ $(document).ready(function() {
 
   	var rowsInDb = "<?=Park::count()?>";
 
-  	console.log(rowsInDb);
 
 	var getRequest = "<?=$pageNum?>";
 
@@ -244,7 +249,6 @@ $(document).ready(function() {
 			}
 	});
 	$("#bt2").click(function(){
-		console.log("aves");
 		if (parseInt(getRequest) >= (Math.ceil(parseInt(rowsInDb)/4))) {
 			window.location.href="http://codeup.dev/national_parks.php?pageNum=1";
 		}else{
