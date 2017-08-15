@@ -1,46 +1,34 @@
 <?php
-require_once __DIR__ . '/../db_connect.php';
+require_once '../Park.php';
 require_once '../Input.php';
 
-function pageController($dbc)
+
+
+function pageController()
 {
 
 	
-	if (!empty($_GET) && is_numeric(Input::get('pageNum')) && Input::get('pageNum') >= 1) {
+	if (!empty($_GET) && is_numeric(Input::get('pageNum')) && Input::get('pageNum') >= 1 && (Input::get('pagenum') <= (ceil(Park::count() / 4)))) {
 		$number = Input::get('pageNum');
 		$offset = ($number - 1) * 4;
-
-		$stmt = $dbc->query("SELECT * FROM national_parks limit 4 offset $offset;");
-		$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-
+		$results = Park::paginate($offset);
 		$data = ['pageNum' => $number, 'results' => $results];
 	 
 	}else{
-		$stmt = $dbc->query("SELECT * FROM national_parks limit 4 ;");
-		$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+		$results = Park::paginate(1);
 		$data = ['pageNum' => 1, 'results' => $results];
 		
 	}
 
 	if (!empty($_POST)){
-		$name = Input::get('name');
-		$location = Input::get('location');
-		$date_established = Input::get('date_established');
-		$area_in_acres = Input::get('area_in_acres');
-
-
-		$stmt = $dbc->prepare("insert into national_parks (`name`,`location`, `date_established`, `area_in_acres`)
-			values (:name, :location, :date_established, :area_in_acres);");
-
-		$stmt->bindValue(':name', $name, PDO::PARAM_STR);
-		$stmt->bindValue(':location', $location, PDO::PARAM_STR);
-		$stmt->bindValue(':date_established', $date_established, PDO::PARAM_STR);
-		$stmt->bindValue(':area_in_acres', $area_in_acres, PDO::PARAM_STR);
-
-
-		 $stmt->execute();
+		var_dump($_POST);
+		$input = new Park();
+        $input->name = Input::get('name');
+        $input->location = Input::get('location');
+        $input->date_established = Input::get('date_established');
+        $input->area_in_acres = Input::get('area_in_acres');
+        $input->description = Input::get('description');
+        $input->insert();
 
 	}
 
@@ -49,7 +37,7 @@ function pageController($dbc)
 }
 
 
-extract(pageController($dbc));
+extract(pageController());
 
 
 
@@ -85,7 +73,18 @@ extract(pageController($dbc));
 		text-align: center;
 	}
 	.skewTable {
-		transform: skewX(45deg);
+		animation-name: DroptableSkew;
+    	animation-duration: .5s;
+    	animation-fill-mode: forwards;
+    	animation-timing-function: ease-in;
+	}
+	@keyframes DroptableSkew {
+		from {top: 200px;}
+		to {top: 500px;}
+		from {transform: skewX(0deg);}
+		to {transform: skewX(45deg);}
+
+		
 	}
 
 	</style>
@@ -130,6 +129,8 @@ extract(pageController($dbc));
 		<input type="date" name="date_established" id="date_established" required>
 		<label for="area_in_acres">Area In Acres</label>
 		<input type="text" name="area_in_acres" id="area_in_acres" required>
+		<label for="description">Description</label>
+		<input type="textarea" name="description" id="description" required>
 		<button class="btn" type="submit">Add Park</button>
 	</form>
 </div>
@@ -199,7 +200,6 @@ $(document).ready(function() {
 		}
 
 	var ballArray = [];
-	console.log(ballArray);
 	function init() {
 		var radius = randomIntFromRange(8, 20);
 		var x = randomIntFromRange(radius, canvas.width - radius);
@@ -223,17 +223,13 @@ $(document).ready(function() {
 
 
   	function dTable(){
-  		$("#tableDiv").animate({
-  			"top": "500"
-  		});
-  		setTimeout(function(){
   		$("#tableDiv").addClass("skewTable")
-  	
-		}, 400);
-
+ 
   	};
 
+  	var rowsInDb = "<?=Park::count()?>";
 
+  	console.log(rowsInDb);
 
 	var getRequest = "<?=$pageNum?>";
 
@@ -248,7 +244,8 @@ $(document).ready(function() {
 			}
 	});
 	$("#bt2").click(function(){
-		if (parseInt(getRequest) == 16) {
+		console.log("aves");
+		if (parseInt(getRequest) >= (Math.ceil(parseInt(rowsInDb)/4))) {
 			window.location.href="http://codeup.dev/national_parks.php?pageNum=1";
 		}else{
 				window.location.href="national_parks.php?pageNum="+ (parseInt(getRequest) + 1);
