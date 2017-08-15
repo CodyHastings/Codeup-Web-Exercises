@@ -125,17 +125,27 @@ extract(pageController());
 		</div>
 		<div id="formWrapper" class="col-md-4">
 			<form method="POST">
-				<label for="name">Name</label>
-				<input type="text" name="name" id="name" required>
-				<label for="location">Location</label>
-				<input type="text" name="location" id="location"required>
-				<label for="date_established">Date Established</label>
-				<input type="date" name="date_established" id="date_established" required>
-				<label for="area_in_acres">Area In Acres</label>
-				<input type="text" name="area_in_acres" id="area_in_acres" required>
-				<label for="description">Description</label>
-				<input type="textarea" name="description" id="description" required>
-				<button class="btn" type="submit">Add Park</button>
+				<div class="form-group">
+					<label for="name">Name</label>
+					<input type="text" name="name" id="name" required>
+				</div>
+				<div class="form-group">
+					<label for="location">Location</label>
+					<input type="text" name="location" id="location"required>
+				</div>
+				<div class="form-group">
+					<label for="date_established">Date Established</label>
+					<input type="date" name="date_established" id="date_established" required>
+				</div>
+				<div class="form-group">
+					<label for="area_in_acres">Area In Acres</label>
+					<input type="text" name="area_in_acres" id="area_in_acres" required>
+				</div>
+				<div class="form-group">
+					<label for="description">Description</label>
+					<input type="textarea" name="description" id="description" required>
+					<button class="btn" type="submit">Add Park</button>
+				</div>
 			</form>
 		</div>
 	</div>
