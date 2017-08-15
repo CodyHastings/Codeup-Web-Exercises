@@ -2,24 +2,12 @@
 
 class Input
 {
-    /**
-     * Check if a given value was passed in the request
-     *
-     * @param string $key index to look for in request
-     * @return boolean whether value exists in $_POST or $_GET
-     */
+
     public static function has($key)
     {
         return isset($_REQUEST[$key]);
     }
 
-    /**
-     * Get a requested value from either $_POST or $_GET
-     *
-     * @param string $key index to look for in index
-     * @param mixed $default default value to return if key not found
-     * @return mixed value passed in request
-     */
     public static function get($key, $default = null)
     {
         if (Input::has($key)){
@@ -27,6 +15,34 @@ class Input
         } else {
             return $default;
     }
+    }
+
+
+    public static function safe($string){
+        return htmlspecialchars(strip_tags($string));
+    }
+
+    public static function inputHas($key){
+        return isset($_REQUEST[$key]);
+    }
+
+
+    public static function inputGet($key, $default =""){
+        if (inputHas($key)){
+            return $_REQUEST[$key];
+        } else {
+            return $default;
+        }
+    }
+
+//escape hacker input
+
+    public static function escape($input){
+        if(!is_string($input)){
+            return false;
+        } else {
+            return Input::safe($input);
+        }
     }
 
     ///////////////////////////////////////////////////////////////////////////

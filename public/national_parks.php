@@ -82,7 +82,7 @@ extract(pageController());
 	}
 	@keyframes DroptableSkew {
 		from {top: 200px;}
-		to {top: 500px;}
+		to {top: 400px;}
 		from {transform: skewX(0deg);}
 		to {transform: skewX(45deg);}
 
