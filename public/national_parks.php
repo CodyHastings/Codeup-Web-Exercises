@@ -63,8 +63,8 @@ extract(pageController());
 		position: absolute;
 		margin-left: 10%;
 		margin-right: 10%;
-	}
-	#formWrapper{
+	}*/
+/*	#formWrapper{
 		position: absolute;
 		margin-left: 10%;
 		margin-right: 10%;
@@ -93,7 +93,7 @@ extract(pageController());
 </head>
 <body>
 <canvas id="can"></canvas>
-<h1 class="header"> National Parks!!!</h1>
+<h1 class="header"> National Parks</h1>
 <div class="container">
 	<div class="row justify-content-md-center">
 		<div id="buttonWrap" class="col-md-3">
@@ -104,7 +104,7 @@ extract(pageController());
 		</div>
 
 
-		<div id="tableDiv" class="col-lg-6">
+		<div id="tableDiv" class="col-lg-5">
 			<table class="table">
 				<tr>
 					<th>Park Name</th>
@@ -115,15 +115,15 @@ extract(pageController());
 
 					<?PHP foreach ($results as $value) : ?>
 				<tr>
-					<td><?= $value->name ?></td>
-					<td><?= $value->location ?></td>
-					<td><?= $value->date_established ?></td>
-					<td><?= $value->area_in_acres ?></td>
+					<td><?= Input::escape($value->name) ?></td>
+					<td><?= Input::escape($value->location) ?></td>
+					<td><?= Input::escape($value->date_established) ?></td>
+					<td><?= Input::escape($value->area_in_acres) ?></td>
 				</tr>
 					<?PHP endforeach ?>
 			</table>
 		</div>
-		<div id="formWrapper" class="col-md-3">
+		<div id="formWrapper" class="col-md-4">
 			<form method="POST">
 				<label for="name">Name</label>
 				<input type="text" name="name" id="name" required>
@@ -243,7 +243,7 @@ $(document).ready(function() {
 
 	$("#bt1").click(function(){
 		if (parseInt(getRequest) == 1) {
-			window.location.href="http://codeup.dev/national_parks.php?pageNum=1";
+			window.location.href="http://codeup.dev/national_parks.php?pageNum="+ (Math.ceil(parseInt(rowsInDb)/4));
 		}else{
 				window.location.href="national_parks.php?pageNum="+ (parseInt(getRequest) - 1);
 			}
