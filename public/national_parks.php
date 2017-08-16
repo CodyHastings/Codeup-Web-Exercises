@@ -81,7 +81,7 @@ extract(pageController());
     	animation-timing-function: ease-in;
 	}
 	@keyframes DroptableSkew {
-		from {top: 200px;}
+		from {top: 0;}
 		to {top: 400px;}
 		from {transform: skewX(0deg);}
 		to {transform: skewX(45deg);}
@@ -101,6 +101,8 @@ extract(pageController());
 			<button class="btn btn-primary btn-block" id="bt2">Next </button>
 			<button class="btn btn-success btn-block" id="addBall">Drop a Ball</button>
 			<button class="btn btn-success btn-block" id="dropTable">Drop Table</button>
+			<button class="btn btn-success btn-block" id="bigBall">Drop a Big'n</button>
+			<button class="btn btn-success btn-block" id="200Balls">Drop lil Balls</button>
 		</div>
 
 
@@ -127,23 +129,23 @@ extract(pageController());
 			<form method="POST">
 				<div class="form-group">
 					<label for="name">Name</label>
-					<input type="text" name="name" id="name" required>
+					<input type="text" name="name" id="name" class="form-control" required>
 				</div>
 				<div class="form-group">
 					<label for="location">Location</label>
-					<input type="text" name="location" id="location"required>
+					<input type="text" name="location" id="location" class="form-control" required>
 				</div>
 				<div class="form-group">
 					<label for="date_established">Date Established</label>
-					<input type="date" name="date_established" id="date_established" required>
+					<input type="date" name="date_established" id="date_established" class="form-control" required>
 				</div>
 				<div class="form-group">
 					<label for="area_in_acres">Area In Acres</label>
-					<input type="text" name="area_in_acres" id="area_in_acres" required>
+					<input type="text" name="area_in_acres" id="area_in_acres" class="form-control" required>
 				</div>
 				<div class="form-group">
 					<label for="description">Description</label>
-					<input type="textarea" name="description" id="description" required>
+					<input type="textarea" name="description" id="description" class="form-control" required>
 					<button class="btn" type="submit">Add Park</button>
 				</div>
 			</form>
@@ -225,6 +227,28 @@ $(document).ready(function() {
 		ballArray.push(new Ball(x, y, dx, dy, radius, randomColor(colors)));
 	}
 
+	function initBigBall(){
+		var radius = 100;
+		var x = randomIntFromRange(radius, canvas.width - radius);
+		var y = randomIntFromRange(0, canvas.height - radius);
+		var dx = randomIntFromRange(-3, 3)
+		var dy = randomIntFromRange(-2, 2)
+		ballArray.push(new Ball(x, y, dx, dy, radius, randomColor(colors)));
+	}
+
+	function init300Balls(){
+		for (var i = 0; i < 300; i++) {
+		var radius = randomIntFromRange(4, 12);
+		var x = randomIntFromRange(radius, canvas.width - radius);
+		var y = 400;
+		var dx = randomIntFromRange(-3, 3)
+		var dy = randomIntFromRange(-2, 2)
+
+		ballArray.push(new Ball(x, y, dx, dy, radius, randomColor(colors)));
+			
+		};
+	}
+
 	function animate() {
 
   		requestAnimationFrame(animate);
@@ -249,6 +273,8 @@ $(document).ready(function() {
 	var getRequest = "<?=$pageNum?>";
 
 	$("#addBall").click(init);
+	$("#bigBall").click(initBigBall);
+	$("#200Balls").click(init300Balls);
 	$("#dropTable").click(dTable);
 
 	$("#bt1").click(function(){
