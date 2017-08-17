@@ -54,23 +54,6 @@ extract(pageController());
 		position: absolute;
 		z-index: -1;
 	}
-/*	#buttonWrap {
-		position: absolute;
-		margin-left: 1%;
-		margin-right: 10%;
-	}
-	#tableDiv {
-		position: absolute;
-		margin-left: 10%;
-		margin-right: 10%;
-	}*/
-/*	#formWrapper{
-		position: absolute;
-		margin-left: 10%;
-		margin-right: 10%;
-		left: 500px;
-		top: 200px;
-	}*/
 	h1 {
 		text-align: center;
 	}
@@ -80,11 +63,25 @@ extract(pageController());
     	animation-fill-mode: forwards;
     	animation-timing-function: ease-in;
 	}
+	.reverseTable {
+		animation-name: reverseSkew;
+    	animation-duration: .5s;
+    	animation-fill-mode: reverse;
+    	animation-timing-function: ease-in;
+	}
 	@keyframes DroptableSkew {
 		from {top: 0;}
 		to {top: 400px;}
 		from {transform: skewX(0deg);}
-		to {transform: skewX(45deg);}
+		to {transform: skewX(35deg);}
+
+		
+	}
+		@keyframes reverseSkew {
+		from {top: 0;}
+		to {top: 400px;}
+		from {transform: skewX(0deg);}
+		to {transform: skewX(35deg);}
 
 		
 	}
@@ -103,6 +100,7 @@ extract(pageController());
 			<button class="btn btn-success btn-block" id="dropTable">Drop Table</button>
 			<button class="btn btn-success btn-block" id="bigBall">Drop a Big'n</button>
 			<button class="btn btn-success btn-block" id="200Balls">Drop lil Balls</button>
+			<button class="btn btn-warning btn-block" id="vaccumeBalls">Vaccume</button>
 		</div>
 
 
@@ -161,6 +159,8 @@ $(document).ready(function() {
 	var canvas = document.querySelector("canvas");
 	var gravity = 0.2;
 	var friction = 0.98;
+	var flag = true;
+	var kill = false;
 	var c = canvas.getContext("2d");
 	var colors = [
 	'#04e5de',
@@ -170,6 +170,10 @@ $(document).ready(function() {
 	];
 	canvas.width = window.innerWidth;
 	canvas.height = window.innerHeight - 20;
+	window.addEventListener("resize", function() {
+			canvas.width = window.innerWidth;
+			canvas.height = window.innerHeight;		
+		});
 
 
 
@@ -190,7 +194,7 @@ $(document).ready(function() {
 		this.color = color;
 
 		this.update = function() {
-			if (this.y + this.radius + this.dy> canvas.height) {
+			if (this.y + this.radius + this.dy > canvas.height) {
 				this.dy = -this.dy;
 				this.dy = this.dy * friction;
 				this.dx = this.dx * friction;
@@ -206,6 +210,25 @@ $(document).ready(function() {
 			this.y += this.dy;
 			this.draw();
 		};
+
+		this.vaccume = function(){
+			if(this.x + this.radius == canvas.width/2 && this.y >= 0){
+				this.y-= 25;
+			}
+
+			if (this.x + this.radius > canvas.width /2 && this.y >= 0){
+				this.x -= 25;
+				this.y -= 25;
+				} 
+
+			if (this.x + this.radius  < canvas.width /2 && this.y >= 0){
+				this.x += 25;
+				} else if (this.y <= 0) {
+					kill = true;
+				}
+
+			this.draw();
+		}
 
 		this.draw = function() {
 			c.beginPath();
@@ -254,9 +277,24 @@ $(document).ready(function() {
   		requestAnimationFrame(animate);
   		c.clearRect(0, 0, innerWidth , innerHeight);
 
-  		for (var i = 0; i < ballArray.length; i++) {
-		ballArray[i].update();
+	  	if (flag === false){		
+	  		for (var i = 0; i < ballArray.length; i++) {
+			ballArray[i].vaccume();
+				if (kill == true) {
+					ballArray.splice(i, 1);
+					kill = false;
+				}
+			}
+		} else {
+			for (var i = 0; i < ballArray.length; i++) {
+			ballArray[i].update();
+			}
 		}
+
+		if (ballArray.length == 0) {
+				flag = true;
+			}
+  		
   	}
 
   	animate();
@@ -264,8 +302,13 @@ $(document).ready(function() {
 
   	function dTable(){
   		$("#tableDiv").addClass("skewTable")
- 
-  	};
+  	}
+
+  	function vaccume(){
+  		flag = false;
+  		$("#tableDiv").addClass("reverseSkew")
+
+  	}
 
   	var rowsInDb = "<?=Park::count()?>";
 
@@ -276,6 +319,7 @@ $(document).ready(function() {
 	$("#bigBall").click(initBigBall);
 	$("#200Balls").click(init300Balls);
 	$("#dropTable").click(dTable);
+	$("#vaccumeBalls").click(vaccume);
 
 	$("#bt1").click(function(){
 		if (parseInt(getRequest) == 1) {
